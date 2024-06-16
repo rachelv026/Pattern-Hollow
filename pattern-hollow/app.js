@@ -61,6 +61,33 @@ app.post("/signup",async(req,res)=>{
 
 })
 
+app.post("/login", async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        // Check if the user with the provided email exists in the database
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            // If the user does not exist, return 'notexist' status
+            return res.json("notexist");
+        }
+
+        // Check if the provided password matches the password in the database
+        if (user.password !== password) {
+            // If the password is incorrect, return 'fail' status
+            return res.json("fail");
+        }
+
+        // If the email and password are correct, return 'success' status
+        res.json("success");
+    } catch (error) {
+        // If an error occurs during the login process, return 'error' status
+        console.error("Error during login:", error);
+        res.json("error");
+    }
+});
+
 app.listen(8000,()=>{
     console.log("port connected");
 })

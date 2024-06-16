@@ -3,7 +3,7 @@ import axios from "axios"
 import { useNavigate, Link } from "react-router-dom"
 
 function Signup() {
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -20,7 +20,7 @@ function Signup() {
                 alert("User already exists");
             } else if (res.data === "notexist") {
                 alert("Signup successful! Please login.");
-                history("/login");
+                navigate("/login");
             }
         } catch (error) {
             alert("An error occurred. Please try again later.");
